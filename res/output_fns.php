@@ -894,7 +894,7 @@ function display_food_details($food) {
     <tr>
         <td rowspan="2">
             <a href="logo.php">    <img  src="images\ELM.png" alt="ldfood logo" height="70" width="75" style="float:left; padding_right:6px;"/>
-            </a><h1 style="text-align:center;">&nbsp;&nbsp;饿死了么外卖</h1>
+            </a><h1 style="text-align:center;">&nbsp;&nbsp;JNU外卖</h1>
         </td>
 
         <?php
@@ -976,12 +976,12 @@ function do_html_url($url,$name){
 
 function display_site_info(){
     ?>
-    <ul>
-    <li>兰州大学外卖平台</li>
-    <li>吃的安心，用的放心</li>
-    <li>做最好的外卖平台</li>
+    <ul style="text-align: center;font-size: 18px;">
+    <li>暨南大学外卖平台</li>
+    <li>简单点餐，享受美味</li>
+    <li>一键下单，享受便捷送餐服务</li>
     </ul>
-<?php
+    <?php
 }
 
 function display_admin_login_form(){
@@ -1024,9 +1024,9 @@ function display_login_form(){
         $login_type="会员登陆";
     }
 ?>
-    <p><a href="register_form.php?usertype=1">注册会员</a>&nbsp;
+    <p style="text-align: center; font-size: 24px;"><a href="register_form.php?usertype=1">注册会员</a>&nbsp;
         <a href="login.php?usertype=1">会员登录</a></p>
-    <p>    <a href="register_form.php?usertype=2">商家入驻</a>&nbsp;
+    <p style="text-align: center; font-size: 24px;">    <a href="register_form.php?usertype=2">商家入驻</a>&nbsp;
         <a href="login.php?usertype=2">商家登录</a></p>
 
     <?php
