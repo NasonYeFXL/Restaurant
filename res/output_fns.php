@@ -21,7 +21,7 @@ function display_food_form($food = '') {
                            value="<?php echo htmlspecialchars($edit ? $food['fno'] : ''); ?>" /></td>
             </tr>
             <tr>
-                <td>商铺名称:</td>
+                <td>店铺名称:</td>
                 <td><input type="text" name="username"
                            value="<?php echo htmlspecialchars($edit ? $food['username'] : ''); ?>" /></td>
             </tr>
