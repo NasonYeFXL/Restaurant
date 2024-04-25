@@ -1,7 +1,6 @@
 <!-- // 用户注册表单 -->
 <?php
 require_once('ldfood_fns.php');
-
 $reg_type="用户注册";
 if (!isset($_GET['usertype'])) {
     //如果不存在->设置为虚拟值
@@ -17,8 +16,6 @@ if($_GET['usertype']=='2')  {
 do_html_header($reg_type);
 
 display_registration_form();
-
 do_html_url('login.php?usertype='.$_GET['usertype'],'返回登录页面');
-
 do_html_footer();
 ?>
