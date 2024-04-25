@@ -3,7 +3,7 @@
 
 require_once('db_fns.php');
 
-function register($username,$passwd,$email,$type,$name,$sex,$age,$phone,$qq,$default_pos,$description){
+function register($username,$passwd,$email,$type,$name,$sex,$phone,$default_pos,$description){
     // 将注册的新用户写入数据库
     // 返回true或者error信息
 
@@ -23,7 +23,7 @@ function register($username,$passwd,$email,$type,$name,$sex,$age,$phone,$qq,$def
     }
 
     //如果符合要求，写入数据库
-    $result=$conn->query("insert into user values('".$username."',sha1('".$passwd."'),'".$email."',".$type.",'".$name."','".$sex."','".$age."','".$phone."','".$qq."','".$default_pos."','".$description."')");
+    $result=$conn->query("insert into user values('".$username."',sha1('".$passwd."'),'".$email."',".$type.",'".$name."','".$sex."','".$phone."','".$default_pos."','".$description."')");
 
     if (!$result) {
         throw new Exception('您无法在数据库中注册，请稍后重试');

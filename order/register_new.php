@@ -19,12 +19,8 @@ if(isset($_POST['name']))$name=$_POST['name'];
 else $name='';
 if(isset($_POST['sex']))$sex=$_POST['sex'];
 else $sex='';
-if(isset($_POST['age']))$age=$_POST['age'];
-else $age='';
 if(isset($_POST['phone']))$phone=$_POST['phone'];
 else $phone='';
-if(isset($_POST['qq']))$qq=$_POST['qq'];
-else $qq='';
 if(isset($_POST['default_pos']))$default_pos=$_POST['default_pos'];
 else $default_pos='';
 if(isset($_POST['description']))$description=$_POST['description'];
@@ -53,7 +49,7 @@ try{
 
     //开始注册
     //这个函数也可以抛出异常
-    register($username,$passwd,$email,$type,$name,$sex,$age,$phone,$qq,$default_pos,$description);
+    register($username,$passwd,$email,$type,$name,$sex,$phone,$default_pos,$description);
     //将用户名注册为会话变量
     if($type==1)
     $_SESSION['valid_user']=$username;
@@ -62,12 +58,6 @@ try{
 
 //保存头像
     if($type!=3 and isset($_FILES['photo'])){
-
-        $allow=array('image/jpeg','image/png','image/gif');
-        if(!in_array($_FILES['photo']['type'],$allow)){
-            echo "头像格式不正确";
-            exit();
-        }
 
         //创建存图片文件夹
         $dir = iconv("UTF-8", "GBK", "images/users/".$username."/");

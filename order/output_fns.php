@@ -1202,26 +1202,27 @@ function display_registration_form(){
         ?>
         <p><label for="photo">头像：</label>
             <br/>
-            <input type="file" name="photo" id="photo" />
+            <input type="file" name="photo" id="photo" accept="image/jpeg, image/png, image/gif"/>
+            <br><span style='color:red;'>*当不选择时使用默认头像</span>
         </p>
         <?php
         }
         ?>
     <p><label for="email">邮箱：</label>
     <br/>
-    <input type="email" name="email" id="email" size+"30" maxlength="100" required />
+    <input type="email" name="email" id="email" maxlength="100" required />
     </p>
-    <p><label for="username"><?php if($_GET['usertype']==1)echo '校园卡号：'; else if($_GET['usertype']==2)echo '商铺名：'; else if($_GET['usertype']==3)echo '管理员：'; ?></label>
+    <p><label for="username"><?php if($_GET['usertype']==1)echo '校园卡号(账号)：'; else if($_GET['usertype']==2)echo '商铺名：'; else if($_GET['usertype']==3)echo '管理员：'; ?></label>
     <br/>
-    <input type="text" name="username" id="username" size+"16" maxlength="16" required />
+    <input type="text" name="username" id="username" maxlength="16" required />
     </p>
     <p><label for="passwd">密码：</label>
     <br/>
-    <input type="password" name="passwd" id="passwd" size+"16" maxlength="16" required />
+    <input type="password" name="passwd" id="passwd" maxlength="16" required />
     </p>
     <p><label for="passwd2">确认密码：</label>
     <br/>
-    <input type="password" name="passwd2" id="passwd2" size+"16" maxlength="16" required />
+    <input type="password" name="passwd2" id="passwd2" maxlength="16" required />
     </p>
         <?php
         if($_GET['usertype']==3){
@@ -1235,7 +1236,7 @@ function display_registration_form(){
 
         <p><label for="passwd2">姓名：</label>
             <br/>
-            <input type="text" name="name" id="name" size+"30" maxlength="30" required />
+            <input type="text" name="name" id="name" maxlength="30" required />
         </p>
         <p><label for="性别">性别：</label>
             <br/>
@@ -1245,21 +1246,13 @@ function display_registration_form(){
             </select>
         </p>
 
-        <p><label for="age">年龄：</label>
-            <br/>
-            <input type="text" name="age" id="age" size+"30" maxlength="30" required />
-        </p>
         <p><label for="passwd2">联系电话：</label>
             <br/>
-            <input type="text" name="phone" id="phone" size+"20" maxlength="20" required />
+            <input type="text" name="phone" id="phone" maxlength="20" required />
         </p>
-        <p><label for="qq">QQ：</label>
+        <p><label for="default_pos">配送地址：</label>
             <br/>
-            <input type="text" name="qq" id="qq" size+"20" maxlength="20" required />
-        </p>
-        <p><label for="default_pos">默认地址：</label>
-            <br/>
-            <input type="default_pos" name="default_pos" id="default_pos" size+"100" maxlength="100" required />
+            <input type="default_pos" name="default_pos" id="default_pos" maxlength="100" required />
         </p>
 
         <?php
