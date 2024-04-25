@@ -977,7 +977,7 @@ function do_html_url($url,$name){
 function display_site_info(){
     ?>
     <ul style="text-align: center; font-size: 18px; padding: 0;">
-    <li><marquee scrollamount="10" loop="3">JNU外卖平台 ———— 一键订餐，美味随手可得！———— 快速送达，让美食不再等待！———— 千款美食，一站式订餐体验！</marquee></li>
+    <marquee scrollamount="10" loop="3">JNU外卖平台 ———— 一键订餐，美味随手可得！———— 快速送达，让美食不再等待！———— 千款美食，一站式订餐体验！</marquee>
  </ul>
     <?php
 }
@@ -1108,7 +1108,7 @@ function display_login_form(){
             background-color: #0056b3;
         }
         a {
-            color: #007bff;
+            color: #000000;
             text-decoration: none;
         }
         a:hover {
@@ -1122,6 +1122,21 @@ function display_login_form(){
         <a href="login.php?usertype=2">商家登录</a>
     </div>
 
+    <?php
+    if($_GET['usertype']=='2'){
+
+    ?>
+
+    <form method="post" action="shop_main.php">
+    <?php
+    }
+    else{
+    ?>
+    <form method="post" action="user_main.php">
+    <?php
+    }
+    ?>
+    
     <form method="post" action="<?php echo $actionPage; ?>">
         <div class="formblock">
             <h2><?php echo $login_type; ?></h2>
