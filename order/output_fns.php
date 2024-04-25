@@ -1076,41 +1076,71 @@ function display_login_form(){
         $login_type="会员登录";
     }
 ?>
-    <p style="text-align: center; font-size: 18px;"><a href="register_form.php?usertype=1">注册会员</a>&nbsp;
-        <a href="login.php?usertype=1">会员登录</a></p>
-    <p style="text-align: center; font-size: 18px;">    <a href="register_form.php?usertype=2">商家入驻</a>&nbsp;
-        <a href="login.php?usertype=2">商家登录</a></p>
-
-    <?php
-    if($_GET['usertype']=='2'){
-
-    ?>
-
-    <form method="post" action="shop_main.php">
-    <?php
-    }
-    else{
-    ?>
-    <form method="post" action="user_main.php">
-    <?php
-    }
-    ?>
-    <div class="formblock">
-    <h2><?php  echo $login_type;  ?></h2>
-
-    <p><label for="username">用户名：</label>
-    <br/>
-    <input type="text" name="username" id="username"></p>
-
-    <p><label for="passwd">密码：</label>
-    <br/>
-    <input type="password" name="passwd" id="passwd"></p>
-
-    <button type="submit">登录</button>
-
-    <p><a href="forgot_form.php">忘记密码？</a></p>
+    <style>
+        .formblock {
+            margin: auto;
+            width: 300px;
+            padding: 20px;
+            background: #f3f3f3;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"], input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 95%;
+            padding: 10px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <div class="links" style="text-align: center; font-size: 18px;">
+        <a href="register_form.php?usertype=1">注册会员</a> |
+        <a href="login.php?usertype=1">会员登录</a> |
+        <a href="register_form.php?usertype=2">商家入驻</a> |
+        <a href="login.php?usertype=2">商家登录</a>
     </div>
 
+    <form method="post" action="<?php echo $actionPage; ?>">
+        <div class="formblock">
+            <h2><?php echo $login_type; ?></h2>
+
+            <p><label for="username">用户名：</label>
+            <input type="text" name="username" id="username"></p>
+
+            <p><label for="passwd">密码：</label>
+            <input type="password" name="passwd" id="passwd"></p>
+
+            <button type="submit">登录</button>
+
+            <p><a href="forgot_form.php">忘记密码？</a></p>
+        </div>
     </form>
 <?php
 }
