@@ -976,14 +976,9 @@ function do_html_url($url,$name){
 
 function display_site_info(){
     ?>
-    <ul style="text-align: center;font-size: 18px;">
-    <a>暨南大学外卖平台</a>
-    <br>
-    <a>简单点餐，享受美味</a>
-    <br>
-    <a>一键下单，享受便捷送餐服务</a>
-    <br>
-    </ul>
+    <ul style="text-align: center; font-size: 18px; padding: 0;">
+    <li><marquee scrollamount="10" loop="3">JNU外卖平台 ———— 一键订餐，美味随手可得！———— 快速送达，让美食不再等待！———— 千款美食，一站式订餐体验！</marquee></li>
+ </ul>
     <?php
 }
 
