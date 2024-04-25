@@ -894,7 +894,7 @@ function display_food_details($food) {
     <tr>
         <td rowspan="2">
             <a href="logo.php">    <img  src="images\ELM.png" alt="ldfood logo" height="70" width="75" style="float:left; padding_right:6px;"/>
-            </a><h1 style="text-align:center;">&nbsp;&nbsp;JNU外卖</h1>
+            </a><h1 style="text-align:center;JNU外卖</h1>
         </td>
 
         <?php
@@ -977,16 +977,68 @@ function do_html_url($url,$name){
 function display_site_info(){
     ?>
     <ul style="text-align: center;font-size: 18px;">
-    <li>暨南大学外卖平台</li>
-    <li>简单点餐，享受美味</li>
-    <li>一键下单，享受便捷送餐服务</li>
+    <a>暨南大学外卖平台</a>
+    <br>
+    <a>简单点餐，享受美味</a>
+    <br>
+    <a>一键下单，享受便捷送餐服务</a>
+    <br>
     </ul>
     <?php
 }
 
 function display_admin_login_form(){
-
-?>
+    ?>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* 使用更清晰的字体 */
+            background-color: #f4f4f4; /* 轻松的背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .formblock {
+            background-color: #ffffff; /* 白色背景 */
+            padding: 20px;
+            border-radius: 8px; /* 圆角边框 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 细微的阴影效果 */
+            width: 300px;
+        }
+        h2 {
+            text-align: center; /* 标题居中 */
+            color: #333; /* 深色字体 */
+        }
+        input[type="text"], input[type="password"] {
+            width: 100%; /* 宽度填满容器 */
+            padding: 8px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            box-sizing: border-box; /* 避免边框影响宽度 */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%; /* 完整宽度按钮 */
+            padding: 10px;
+            background-color: #007BFF; /* 蓝色背景 */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3; /* 鼠标悬停时变暗 */
+        }
+        a {
+            color: #007BFF; /* 链接颜色与按钮一致 */
+            text-decoration: none; /* 无下划线 */
+        }
+        a:hover {
+            text-decoration: underline; /* 鼠标悬停时出现下划线 */
+        }
+    </style>
 
     <form method="post" action="admin_main.php">
         <div class="formblock">
@@ -1004,29 +1056,29 @@ function display_admin_login_form(){
 
             <p><a href="forgot_form.php">忘记密码？</a></p>
         </div>
-
     </form>
 
     <?php
-        }
+}
+
 
 
 function display_login_form(){
     if (!isset($_GET['usertype'])) {
         //如果不存在->设置为虚拟值
         $_GET['usertype']=1;
-        $login_type="会员登陆";
+        $login_type="会员登录";
     }
     if($_GET['usertype']=='2')  {
-        $login_type="商家登陆";
+        $login_type="商家登录";
     }
     else{
-        $login_type="会员登陆";
+        $login_type="会员登录";
     }
 ?>
-    <p style="text-align: center; font-size: 24px;"><a href="register_form.php?usertype=1">注册会员</a>&nbsp;
+    <p style="text-align: center; font-size: 18px;"><a href="register_form.php?usertype=1">注册会员</a>&nbsp;
         <a href="login.php?usertype=1">会员登录</a></p>
-    <p style="text-align: center; font-size: 24px;">    <a href="register_form.php?usertype=2">商家入驻</a>&nbsp;
+    <p style="text-align: center; font-size: 18px;">    <a href="register_form.php?usertype=2">商家入驻</a>&nbsp;
         <a href="login.php?usertype=2">商家登录</a></p>
 
     <?php
