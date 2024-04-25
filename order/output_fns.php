@@ -1139,7 +1139,7 @@ function display_login_form(){
 
             <button type="submit">登录</button>
 
-            <p><a href="forgot_form.php">忘记密码？</a></p>
+            <p style="text-align:right;"><a href="forgot_form.php" style="font-size:14px;">忘记密码？</a></p>
         </div>
     </form>
 <?php
