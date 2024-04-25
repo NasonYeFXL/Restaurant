@@ -885,7 +885,7 @@ function display_food_details($food) {
       hr { color: #3333cc;}
       a { color: #000 }
       div.formblock
-         { background: #ccc; width: 300px; padding: 6px; border: 1px solid #000;}
+         { background: rgba(175, 216, 230, 0.7); width: 300px; padding: 6px; border: 1px solid #000;}
     </style>
     <style>
     .bg {
@@ -991,9 +991,26 @@ function do_html_url($url,$name){
 
 function display_site_info(){
     ?>
-    <ul style="text-align: center; font-size: 18px; padding: 0;">
-    <marquee scrollamount="10" loop="3">JNU外卖平台 ———— 一键订餐，美味随手可得！———— 快速送达，让美食不再等待！———— 千款美食，一站式订餐体验！</marquee>
- </ul>
+    <style>
+    .marquee {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .marquee-text {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 20s linear infinite;
+    }
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+    </style>
+    <ul class="marquee" style="text-align: center; font-size: 18px; padding: 0;">
+        <span class="marquee-text">JNU外卖平台 ———— 一键订餐，美味随手可得！———— 快速送达，让美食不再等待！———— 千款美食，一站式订餐体验！</span>
+    </ul>
     <?php
 }
 
@@ -1153,7 +1170,7 @@ function display_login_form(){
     ?>
     
     <form method="post" action="<?php echo $actionPage; ?>">
-        <div class="formblock" style="background: rgba(175, 216, 230, 0.7);">
+        <div class="formblock">
             <h2><?php echo $login_type; ?></h2>
 
             <p><label for="username">用户名：</label>
@@ -1176,7 +1193,6 @@ function display_registration_form(){
     <div class="formblock">
     <h2>立即注册</h2>
         <input type="hidden" id="type" name="type" value="<?php  echo $_GET['usertype']; ?>">
-
         <?php
 
         if($_GET['usertype']==3){
@@ -1184,7 +1200,6 @@ function display_registration_form(){
         }
         else{
         ?>
-
         <p><label for="photo">头像：</label>
             <br/>
             <input type="file" name="photo" id="photo" />
@@ -1192,27 +1207,22 @@ function display_registration_form(){
         <?php
         }
         ?>
-
     <p><label for="email">邮箱：</label>
     <br/>
     <input type="email" name="email" id="email" size+"30" maxlength="100" required />
     </p>
-
     <p><label for="username"><?php if($_GET['usertype']==1)echo '校园卡号：'; else if($_GET['usertype']==2)echo '商铺名：'; else if($_GET['usertype']==3)echo '管理员：'; ?></label>
     <br/>
     <input type="text" name="username" id="username" size+"16" maxlength="16" required />
     </p>
-
     <p><label for="passwd">密码：</label>
     <br/>
     <input type="password" name="passwd" id="passwd" size+"16" maxlength="16" required />
     </p>
-
     <p><label for="passwd2">确认密码：</label>
     <br/>
     <input type="password" name="passwd2" id="passwd2" size+"16" maxlength="16" required />
     </p>
-
         <?php
         if($_GET['usertype']==3){
             ;
