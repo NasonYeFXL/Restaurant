@@ -887,14 +887,29 @@ function display_food_details($food) {
       div.formblock
          { background: #ccc; width: 300px; padding: 6px; border: 1px solid #000;}
     </style>
+    <style>
+    .bg {
+        margin: 0;
+        background: rgba(173, 216, 230, 0.5); /* 浅蓝色半透明背景，颜色更轻 */
+        backdrop-filter: blur(10px); /* 模糊效果增加玻璃感 */
+    }
+    .content {
+        color: black;
+        font-size: 24px;
+        padding: 20px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 10px;
+        background: rgba(173, 216, 230, 0.7); /* 内容区也使用浅蓝色，但更不透明 */
+    }
+</style>
 </head>
-<body>
-
-<table width="100%" border="0" cellspacing="0" bgcolor="5798f0">
+<body class="bg">
+<table width="100%" border="0" cellspacing="0">
     <tr>
         <td rowspan="2">
-            <a href="logo.php">    <img  src="images\ELM.png" alt="ldfood logo" height="70" width="75" style="float:left; padding_right:6px;"/>
-            </a><h1 style="text-align:center;JNU外卖</h1>
+            <a href="logo.php">
+                <img  src="images\ELM.png" alt="ldfood logo" height="70" width="75" style="float:left; padding_right:6px;"/>
+            </a>
         </td>
 
         <?php
@@ -1096,7 +1111,7 @@ function display_login_form(){
             border: 1px solid #ccc;
         }
         button {
-            width: 95%;
+            width: 97%;
             padding: 10px;
             color: white;
             background-color: #007bff;
@@ -1138,7 +1153,7 @@ function display_login_form(){
     ?>
     
     <form method="post" action="<?php echo $actionPage; ?>">
-        <div class="formblock">
+        <div class="formblock" style="background: rgba(175, 216, 230, 0.7);">
             <h2><?php echo $login_type; ?></h2>
 
             <p><label for="username">用户名：</label>
