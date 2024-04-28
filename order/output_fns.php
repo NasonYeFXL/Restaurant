@@ -1034,7 +1034,7 @@ function display_button($target, $image, $alt) {
 
 function do_html_url($url,$name){
     ?>
-    <h3><a class="formblock" href="<?php echo $url;?>"><?php echo $name;?></a><br></h3>
+    <h3><a href="<?php echo $url;?>"><?php echo $name;?></a><br></h3>
     <?php
 }
 
@@ -1174,10 +1174,10 @@ function display_login_form(){
             <h2><?php echo $login_type; ?></h2>
 
             <p><label for="username">用户名：</label>
-            <input type="text" name="username" id="username"></p>
+            <input type="text" name="username" id="username" required></p>
 
             <p><label for="passwd">密码：</label>
-            <input type="password" name="passwd" id="passwd"></p>
+            <input type="password" name="passwd" id="passwd" required></p>
 
             <button type="submit">登录</button>
 
