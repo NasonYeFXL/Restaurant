@@ -4,7 +4,7 @@
 require_once('ldfood_fns.php');
 session_start();//会话启动
 
-
+do_html_header("");
 if (check_valid_admin()) {//检查登录状态
   if (filled_out($_POST)) {//检查空值
     $catid = $_POST['catid'];

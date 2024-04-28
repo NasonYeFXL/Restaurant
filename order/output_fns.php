@@ -558,7 +558,7 @@ function display_cart($cart, $change = true, $images = 1) {
 
     //display each item as a table row
     foreach ($cart as $isbn => $qty)  {
-        $book = get_food_details($isbn);
+        $food = get_food_details($isbn);
         echo "<tr>";
         if($images == true) {
             echo "<td align=\"left\">";
@@ -576,9 +576,9 @@ function display_cart($cart, $change = true, $images = 1) {
             echo "</td>";
         }
         echo "<td align=\"left\">
-          <a href=\"show_book.php?fno=".urlencode($isbn)."\">".htmlspecialchars($book['title'])."</a>
-          by ".htmlspecialchars($book['username'])."</td>
-          <td align=\"center\">\$".number_format($book['price'], 2)."</td>
+          <a href=\"show_food.php?fno=".urlencode($isbn)."\">".htmlspecialchars($food['title'])."</a>
+          by ".htmlspecialchars($food['username'])."</td>
+          <td align=\"center\">\$".number_format($food['price'], 2)."</td>
           <td align=\"center\">";
 
         // if we allow changes, quantities are in text boxes
@@ -587,7 +587,7 @@ function display_cart($cart, $change = true, $images = 1) {
         } else {
             echo $qty;
         }
-        echo "</td><td align=\"center\">\$".number_format($book['price']*$qty,2)."</td></tr>\n";
+        echo "</td><td align=\"center\">\$".number_format($food['price']*$qty,2)."</td></tr>\n";
     }
     // display total row
     echo "<tr>
@@ -674,26 +674,49 @@ function display_categories($cat_array) {
 function display_foods($food_array) {
     //display all books in the array passed in
     if (!is_array($food_array)) {
-        echo "<p>本店还未推出任何菜品，请添加菜品。</p>";
+        echo "<p>本店还未推出任何菜品。</p>";
     } else {
         //create table
         echo "<table width=\"20%\" border=\"0\">";
 
         //create a table row for each book
         foreach ($food_array as $row) {
+            echo "
+            <style>
+            .image-container {
+                position: relative;
+                display: inline-block;
+            }
+            .image-container .overlay-image {
+                position: absolute;
+                left: 5px; /* 调整到你希望的位置 */
+                top: 10px;
+                width: 130px;
+            }
+            </style>
+            ";
             $url = "show_food.php?fno=" . urlencode($row['fno']);
             echo "<tr><td>";
 
             if (@file_exists("images/foods/{$row['fno']}/cover.png"))  {
                 $size = GetImageSize("images/foods/{$row['fno']}/cover.png");
                 if(($size[0] > 0) && ($size[1] > 0)) {
-                    echo "<td><img src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=150/></td>";
+                    echo "<td>
+                    <div class=\"image-container\">
+                    <img alt=\"Background Image\" src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=150/>";
+                    if($row['state']=="售罄")
+                    echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
+                    echo "</div></td>";
                 }
             }
             else{
-                echo "<td><img src=\"images/foods/cat/".htmlspecialchars($row['catid']).".png\"  style=\"border: 1px solid black\" height=150/></td>";
+                echo "<td>
+                <div class=\"image-container\">
+                <img src=\"images/foods/cat/".htmlspecialchars($row['catid']).".png\"  style=\"border: 1px solid black\" height=150/>";
+                if($row['state']=="售罄")
+                    echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
+                echo "</div></td>";
             }
-
 
             echo "</td><td>";
             $title = htmlspecialchars($row['title']);
@@ -866,25 +889,16 @@ function display_food_details($food) {
 <head>
     <meta charset="UTF-8">
     <title><?php echo $title;?></title>
+    <!--style for -->
     <style>
       body { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       hr { color: #3333cc;}
       a { color: #000 }
-      div.formblock
-         { background: rgba(175, 216, 230, 0.7); width: 300px; padding: 6px; border: 1px solid #000;}
     .bg {
         margin: 0;
         background: rgba(173, 216, 230, 0.5); /* 浅蓝色半透明背景，颜色更轻 */
         backdrop-filter: blur(10px); /* 模糊效果增加玻璃感 */
-    }
-    .content {
-        color: black;
-        font-size: 24px;
-        padding: 20px;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        border-radius: 10px;
-        background: rgba(173, 216, 230, 0.7); /* 内容区也使用浅蓝色，但更不透明 */
     }
 </style>
 <style>
@@ -943,6 +957,23 @@ function display_food_details($food) {
 </style>
 </head>
 <body class="bg">
+    <style>
+        .marquee {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
 <table width="100%" border="0" cellspacing="0">
     <tr>
         <td rowspan="2">
@@ -960,6 +991,11 @@ function display_food_details($food) {
                 <img  src="images\ELM.png" alt="ldfood logo" height="70" width="75" style="float:left; padding_right:6px;"/>
             </a>
         </td>
+        <td>
+            <ul class="marquee" style="text-align: center; font-size: 20px; padding: 0;">
+            <span class="marquee-text">JNU外卖平台&emsp;&emsp;&emsp;一键订餐，美味随手可得！&emsp;&emsp;&emsp;快速送达，让美食不再等待！&emsp;&emsp;&emsp;千款美食，一站式订餐体验！</span>
+            </ul>
+        </td>
 
         <?php
         if(!isset($_SESSION['valid_user'])){
@@ -969,13 +1005,16 @@ function display_food_details($food) {
         ?>
 
 
-        <td align="right" valign="bottom">
+        <td align="right" valign="middle" style="font-size:16px;">
             <?php
             if(isset($_SESSION['admin_user'])) {
                 echo "&nbsp;";
             } else {
                 if(!isset($_SESSION['items']))$_SESSION['items']=0;
                 echo "总计件数 = " . htmlspecialchars($_SESSION['items']);
+                echo "<br>";
+                if(!isset($_SESSION['total_price']))$_SESSION['total_price']=0;
+                echo "总计价格 = ￥".number_format($_SESSION['total_price'],2);
             }
             ?>
         </td>
@@ -989,7 +1028,8 @@ function display_food_details($food) {
             ?>
     </tr>
     <tr>
-        <td align="right" valign="top">
+        <td></td>
+        <td align="right" valign="top" style="font-size:13px;">
             <?php
             if(isset($_SESSION['admin_user'])) {
                 echo "&nbsp;";
@@ -1040,26 +1080,6 @@ function do_html_url($url,$name){
 
 function display_site_info(){
     ?>
-    <style>
-    .marquee {
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        box-sizing: border-box;
-    }
-    .marquee-text {
-        display: inline-block;
-        padding-left: 100%;
-        animation: marquee 20s linear infinite;
-    }
-    @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-100%); }
-    }
-    </style>
-    <ul class="marquee" style="text-align: center; font-size: 18px; padding: 0;">
-        <span class="marquee-text">JNU外卖平台 ———— 一键订餐，美味随手可得！———— 快速送达，让美食不再等待！———— 千款美食，一站式订餐体验！</span>
-    </ul>
     <?php
 }
 

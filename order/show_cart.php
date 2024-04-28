@@ -46,15 +46,12 @@
     echo "<p>当前购物车为空</p><hr/>";
   }
 
-  $target = "user_main.php";
+  $target = "shop_disp_all.php";
 
   if($new)   {
     $details =  get_food_details($new);
-    if($details['catid']) {
-      $target = "show_cat.php?catid=".urlencode($details['catid']);
-    }
   }
-  display_button($target, "cart", "继续购物");//展示按钮
+  display_button($target, "main", "继续购物");//展示按钮
 
   display_button("checkout.php", "checkout", "付款");//展示按钮
 

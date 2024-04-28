@@ -1,4 +1,3 @@
-<!-- // 增加和删除书签以及推荐的函数 -->
 <?php
 require_once('db_fns.php');
 
@@ -78,7 +77,7 @@ function insert_food($fno, $username, $title, $catid, $price, $description) {
 //修改状态
 function change_state($title,$state) {
     $conn=db_connect();
-    $query="update foods set state='".$state. "' where title='".$title."'";
+    $query="update foods set state='".$state."' where title='".$title."'";
 
     $result = @$conn->query($query);
     if (!$result) {
@@ -93,7 +92,7 @@ function change_state($title,$state) {
 //获取状态
 function get_state($title) {
     $conn=db_connect();
-    $query='select state from foods where title='.$title;
+    $query="select state from foods where title='".$title."'";
 
     $result = @$conn->query($query);
     if (!$result) {
