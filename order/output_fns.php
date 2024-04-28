@@ -69,35 +69,29 @@ function display_food_form($food = '') {
 
             </tr>
 
-
-
-
             <tr>
                 <td <?php if (!$edit) { echo "colspan=2"; }?> align="center">
                     <?php
                     if ($edit)
                         // we need the old isbn to find book in database
                         // if the isbn is being updated
-                        echo "<input type=\"hidden\" name=\"oldisbn\"
-                    value=\"".htmlspecialchars($food['fno'])."\" />";
+                        echo "<input type=\"hidden\" name=\"oldisbn\"value=\"".htmlspecialchars($food['fno'])."\" />";
                     ?>
-                    <input type="submit"
-                           value="<?php echo $edit ? '更新' : '添加'; ?>菜品" />
-    </form></td>
+                    <input type="submit" value="<?php echo $edit ? '更新' : '添加'; ?>菜品" />
+                
+                </td>
+                </table></form>
     <?php
     if ($edit) {
         echo "<td>
-                   <form method=\"post\" action=\"delete_food.php\">
+                   <form align=\"left\" method=\"post\" action=\"delete_food.php\">
                    <input type=\"hidden\" name=\"fno\"
                     value=\"".htmlspecialchars($food['fno'])."\" />
                    <input type=\"submit\" value=\"删除菜品\"/>
                    </form></td>";
     }
     ?>
-    </td>
-    </tr>
-    </table>
-    </form>
+    
     <?php
 }
 
@@ -943,13 +937,26 @@ function display_food_details($food) {
         a:hover {
             text-decoration: underline;
         }
+        .special-button {
+            color: black;
+            }
 </style>
 </head>
 <body class="bg">
 <table width="100%" border="0" cellspacing="0">
     <tr>
         <td rowspan="2">
-            <a href="logo.php">
+            <?php
+            $logo = '';
+            if(isset($_SESSION['valid_user']))
+                $logo = 'user_main.php';
+            else if(isset($_SESSION['valid_admin']))
+                $logo = 'admin_main.php';
+            else if(isset($_SESSION['valid_shop']))
+                $logo = 'shop_main.php';
+
+            ?>
+                <a href= <?php echo $logo ?> >
                 <img  src="images\ELM.png" alt="ldfood logo" height="70" width="75" style="float:left; padding_right:6px;"/>
             </a>
         </td>

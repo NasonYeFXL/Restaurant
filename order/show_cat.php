@@ -15,7 +15,7 @@
 
 
   if(isset($_SESSION['valid_user'])) {//检验有效用户
-    display_button("index.php", "cart", "继续购物");
+    display_button("show_cart.php", "cart", "继续购物");
     display_button("user_main.php", "main", "主页");
   } else if(isset($_SESSION['valid_shop'])){
     display_button("shop_main.php", "main", "回到首页");
