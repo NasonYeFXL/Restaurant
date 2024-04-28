@@ -646,6 +646,7 @@ function display_password_form() {
         <button type="submit">修改密码</button>
 
     </div>
+</form>
     <br>
     <?php
     }

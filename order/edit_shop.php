@@ -25,7 +25,7 @@ if(isset($_POST['oldusername']))$oldusername=$_POST['oldusername'];
 else $oldusername='';
 
 
-do_html_header("更新店铺信息");
+do_html_header("更新信息");
 if (check_access()) {//检查登录状态
   display_search();
   if (filled_out($_POST)) {//检查空值

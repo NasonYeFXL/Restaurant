@@ -7,7 +7,8 @@ session_start();//会话启动
 do_html_header("编辑信息");
 
 if (check_access()) {//检查登录状态
-  display_search();
+  # display_search();
+  echo "<hr>";
 if(isset($_SESSION['valid_admin']) and isset($_GET['username'])) {
   if ($shop = get_shop_details($_GET['username'])) {
     display_shop_form($shop);//展示店铺表格
