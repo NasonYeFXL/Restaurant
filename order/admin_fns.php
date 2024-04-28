@@ -47,7 +47,7 @@ function update_cat($catid, $catname) {
 
 
 //修改商家信息
-function update_shop($oldusername, $username,$email,$type,$name,$sex,$age,$phone,$qq,$default_pos,$description) {
+function update_shop($oldusername, $username,$email,$type,$name,$sex,$phone,$default_pos,$description) {
 
     $conn = db_connect();
 
@@ -58,9 +58,7 @@ function update_shop($oldusername, $username,$email,$type,$name,$sex,$age,$phone
              type = '".$conn->real_escape_string($type)."',
              name = '".$conn->real_escape_string($name)."',
              sex = '".$conn->real_escape_string($sex)."',
-             age = '".$conn->real_escape_string($age)."',
              phone = '".$conn->real_escape_string($phone)."',
-             qq = '".$conn->real_escape_string($qq)."',
              default_pos = '".$conn->real_escape_string($default_pos)."',
              description = '".$conn->real_escape_string($description)."'
              where username = '".$conn->real_escape_string($oldusername)."'";

@@ -4,7 +4,7 @@
 require_once('ldfood_fns.php');
 session_start();//会话启动
 
-do_html_header("编辑菜品信息");
+do_html_header("编辑信息");
 
 if (check_access()) {//检查登录状态
   display_search();

@@ -159,14 +159,14 @@ function display_shop_form($shop = '') {
 
             <p><label for="email">邮箱：</label>
                 <br/>
-                <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($edit ? $shop['email'] : ''); ?>" size+"30" maxlength="100" required />
+                <input type="text" name="email" id="email" value="<?php echo htmlspecialchars($edit ? $shop['email'] : ''); ?>" size="30" maxlength="100" required />
             </p>
 
             <p><label for="username"><?php if($shop['type']==1)echo '校园卡号：'; else echo '商铺名：';  ?></label>
                 <br/>
-                <input type="hidden" name="oldusername" id="oldusername" value="<?php echo htmlspecialchars($edit ? $shop['username'] : ''); ?>" size+"16" maxlength="16" required />
+                <input type="hidden" name="oldusername" id="oldusername" value="<?php echo htmlspecialchars($edit ? $shop['username'] : ''); ?>" size="16" maxlength="16" required />
 
-                <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($edit ? $shop['username'] : ''); ?>" size+"16" maxlength="16" required />
+                <input type="text" name="username" id="username" value="<?php echo htmlspecialchars($edit ? $shop['username'] : ''); ?>" size="16" maxlength="16" required />
             </p>
 
 
@@ -177,12 +177,12 @@ function display_shop_form($shop = '') {
 
                 <p><label for="passwd">密码：</label>
                     <br/>
-                    <input type="password" name="passwd" id="passwd" value="<?php echo htmlspecialchars($edit ? '' : ''); ?>" size+"16" maxlength="16" required />
+                    <input type="password" name="passwd" id="passwd" value="<?php echo htmlspecialchars($edit ? '' : ''); ?>" size="16" maxlength="16" required />
                 </p>
 
                 <p><label for="passwd2">确认密码：</label>
                     <br/>
-                    <input type="password" name="passwd2" id="passwd2" size+"16" maxlength="16" required />
+                    <input type="password" name="passwd2" id="passwd2" size="16" maxlength="16" required />
                 </p>
                 <?php
             }
@@ -194,7 +194,7 @@ function display_shop_form($shop = '') {
 
             <p><label for="passwd2">姓名：</label>
                 <br/>
-                <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($edit ? $shop['name'] : ''); ?>" size+"30" maxlength="30" required />
+                <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($edit ? $shop['name'] : ''); ?>" size="30" maxlength="30" required />
             </p>
             <p><label for="性别">性别：</label>
                 <br/>
@@ -206,11 +206,11 @@ function display_shop_form($shop = '') {
 
             <p><label for="passwd2">联系电话：</label>
                 <br/>
-                <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($edit ? $shop['phone'] : ''); ?>" size+"20" maxlength="20" required />
+                <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($edit ? $shop['phone'] : ''); ?>" size="20" maxlength="20" required />
             </p>
             <p><label for="default_pos">默认地址：</label>
                 <br/>
-                <input type="text" name="default_pos" id="default_pos" value="<?php echo htmlspecialchars($edit ? $shop['default_pos'] : ''); ?>" size+"100" maxlength="100" required />
+                <input type="text" name="default_pos" id="default_pos" value="<?php echo htmlspecialchars($edit ? $shop['default_pos'] : ''); ?>" size="100" maxlength="100" required />
             </p>
 
             <?php
