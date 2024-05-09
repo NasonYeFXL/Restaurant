@@ -677,7 +677,7 @@ function display_foods($food_array) {
         echo "<p>本店还未推出任何菜品。</p>";
     } else {
         //create table
-        echo "<table width=\"20%\" border=\"0\">";
+        echo "<table width=\"auto\" border=\"0\">";
 
         //create a table row for each book
         foreach ($food_array as $row) {
@@ -703,7 +703,7 @@ function display_foods($food_array) {
                 if(($size[0] > 0) && ($size[1] > 0)) {
                     echo "<td>
                     <div class=\"image-container\">
-                    <img alt=\"Background Image\" src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=150/>";
+                    <img alt=\"Background Image\" src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=150 width=150/>";
                     if($row['state']=="售罄")
                     echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
                     echo "</div></td>";
@@ -720,7 +720,9 @@ function display_foods($food_array) {
 
             echo "</td><td>";
             $title = htmlspecialchars($row['title']);
+            echo "<h2>";
             do_html_url($url, $title);
+            echo "</h2>";
             echo '店铺：'.$row['username'];
             echo '<br>类别：'.get_categories($row['catid'])[0]['catname'];
             echo '<br>状态：'.$row['state'];
@@ -729,9 +731,11 @@ function display_foods($food_array) {
             echo '<br>单价：'.$row['price'];
             echo '<br>描述：'.$row['description'];
             echo "</td></tr>";
+            
         }
-
+        
         echo "</table>";
+        
     }
 
     echo "<hr />";
@@ -1074,7 +1078,7 @@ function display_button($target, $image, $alt) {
 
 function do_html_url($url,$name){
     ?>
-    <h3><a href="<?php echo $url;?>"><?php echo $name;?></a><br></h3>
+    <h2><a href="<?php echo $url;?>"><?php echo $name;?></a><br></h2>
     <?php
 }
 
