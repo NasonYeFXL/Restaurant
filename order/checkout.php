@@ -16,5 +16,6 @@
 
   display_button("show_cart.php", "cart", "继续购物");//展示继续购物按钮
 
+
   do_html_footer();
 ?>
