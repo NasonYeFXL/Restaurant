@@ -1301,17 +1301,39 @@ function display_registration_form(){
 
 function display_search(){
 
-    ?>
-        <br><hr><br>
-        <form method="get" action="shop_disp_all.php">
-            <input type="text" name="search">
-            <input type="submit" name="sub">
-        </form>
+     ?>
+        <style>
+            .search-input {
+                padding: 8px 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                width: 50%;
+            }
 
+            .search-button {
+                padding: 10px 20px;
+                background-color: #007BFF;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .search-button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+
+        <br><hr><br>
+        <form method="get" action="shop_disp_all.php" style="text-align: center;">
+            <input type="text" name="search" placeholder="请输入搜索内容" class="search-input">
+            <input type="submit" value="搜索" class="search-button">
+        </form>
         <br>
         <hr>
     <?php
     }
+
 
 
 function display_button_menu() {
