@@ -573,33 +573,30 @@ function display_cart($cart, $change = true, $images = 1) {
         if($images == true) {
             echo "<td align=\"left\">";
             if (file_exists("images/foods/".htmlspecialchars($isbn)."/cover.png")) {
-                $size = GetImageSize("images/foods/".htmlspecialchars($isbn)."/cover.png");
-                if(($size[0] > 0) && ($size[1] > 0)) {
-                    echo "<img src=\"images/foods/".htmlspecialchars($isbn)."/cover.png\"
-                  style=\"border: 1px solid black\"
-                  width=\"".($size[0]/3)."\"
-                  height=\"".($size[1]/3)."\"/>";
-                }
+                echo "<img src=\"images/foods/".htmlspecialchars($isbn)."/cover.png\"
+                style=\"border: 1px solid black\"
+                width=\"100px\"
+                height=\"100px\"/>";
             } else {
                 echo "&nbsp;";
             }
             echo "</td>";
         }
-        echo "<td align=\"left\">
+        echo "<td style=\"font-size:15px\" align=\"left\">
           <a href=\"show_food.php?fno=".urlencode($isbn)."\">".htmlspecialchars($food['title'])."</a>
           by ".htmlspecialchars($food['username'])."</td>
-          <td align=\"center\">\$".number_format($food['price'], 2)."</td>
+          <td style=\"font-size:15px\" align=\"center\">￥".number_format($food['price'], 2)."</td>
           <td align=\"center\">";
 
         // if we allow changes, quantities are in text boxes
         if ($change == true) {
-            echo "<input type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
-            echo "<button onclick=\"increment($isbn)\">+</button>
-                <button onclick=\"decrement($isbn)\">-</button>";
+            echo "<button style=\"width:5%;padding:5px\" onclick=\"increment('$isbn')\">+</button>";
+            echo "<input style=\"width:10%;padding:5px\" type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
+            echo "<button style=\"width:5%;padding:5px\" onclick=\"decrement('$isbn')\">-</button>";
         } else {
             echo $qty;
         }
-        echo "</td><td align=\"center\">\$".number_format($food['price']*$qty,2)."</td></tr>\n";
+        echo "</td><td style=\"font-size:15px\" align=\"center\">\$".number_format($food['price']*$qty,2)."</td></tr>\n";
     }
     // display total row
     echo "<tr>
