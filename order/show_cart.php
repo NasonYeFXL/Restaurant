@@ -42,6 +42,7 @@
 
   if(isset($_SESSION['cart']) && (array_count_values($_SESSION['cart']))) {
     display_cart($_SESSION['cart']);//输出购物车html代码
+    display_button("checkout.php", "checkout", "付款");//展示按钮
   } else {
     echo "<p>当前购物车为空</p><hr/>";
   }
@@ -53,9 +54,7 @@
   }
   display_button($target, "main", "继续购物");//展示按钮
 
-  display_button("checkout.php", "checkout", "付款");//展示按钮
-
-display_button_menu();
+  display_button_menu();
 
   do_html_footer();
 ?>

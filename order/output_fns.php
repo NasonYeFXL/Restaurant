@@ -142,7 +142,7 @@ function display_shop_form($shop = '') {
 
     <form action="<?php echo $edit ? 'edit_shop.php' : 'register_new.php';?>" method="post" enctype="multipart/form-data">
         <div class="formblock">
-            <h2>店铺信息</h2>
+            <h2>用户信息</h2>
 
             <input type="hidden" id="type" name="type" value="<?php echo htmlspecialchars($edit ? $shop['type'] : '2'); ?>">
 
@@ -547,7 +547,17 @@ function display_cart($cart, $change = true, $images = 1) {
     // display items in shopping cart
     // optionally allow changes (true or false)
     // optionally include images (1 - yes, 0 - no)
-
+    echo "<script> 
+    function increment(id) {
+        var quantity = document.getElementById(String(id));
+        quantity.value = parseInt(quantity.value) + 1;
+    }
+    
+    function decrement(id) {
+        var quantity = document.getElementById(String(id));
+        quantity.value = parseInt(quantity.value) - 1;
+    }
+    </script>";
     echo "<table border=\"0\" width=\"100%\" cellspacing=\"0\">
          <form action=\"show_cart.php\" method=\"post\">
          <tr><th colspan=\"".(1 + $images)."\" bgcolor=\"#cccccc\">Item</th>
@@ -562,10 +572,10 @@ function display_cart($cart, $change = true, $images = 1) {
         echo "<tr>";
         if($images == true) {
             echo "<td align=\"left\">";
-            if (file_exists("images/{$isbn}.jpg")) {
-                $size = GetImageSize("images/{$isbn}.jpg");
+            if (file_exists("images/foods/".htmlspecialchars($isbn)."/cover.png")) {
+                $size = GetImageSize("images/foods/".htmlspecialchars($isbn)."/cover.png");
                 if(($size[0] > 0) && ($size[1] > 0)) {
-                    echo "<img src=\"images/".htmlspecialchars($isbn).".jpg\"
+                    echo "<img src=\"images/foods/".htmlspecialchars($isbn)."/cover.png\"
                   style=\"border: 1px solid black\"
                   width=\"".($size[0]/3)."\"
                   height=\"".($size[1]/3)."\"/>";
@@ -583,8 +593,9 @@ function display_cart($cart, $change = true, $images = 1) {
 
         // if we allow changes, quantities are in text boxes
         if ($change == true) {
-            echo "<input type=\"text\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
-            echo "<button></button>";
+            echo "<input type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
+            echo "<button onclick=\"increment($isbn)\">+</button>
+                <button onclick=\"decrement($isbn)\">-</button>";
         } else {
             echo $qty;
         }
@@ -678,9 +689,19 @@ function display_foods($food_array) {
         echo "<p>本店还未推出任何菜品。</p>";
     } else {
         //create table
-        echo "<table width=\"auto\" border=\"0\">";
+        echo "<table align=\"center\" width=\"100%\" border=\"1\">";
+        echo "<tbody align=\"center\">";
 
         //create a table row for each book
+        echo "<tr>
+        <td></td>
+        <td style=\"font-size:18px\">菜品图片</td>
+        <td style=\"font-size:18px\">菜品名称</td>
+        <td style=\"font-size:18px\">类别</td>
+        <td style=\"font-size:18px\">状态</td>
+        <td style=\"font-size:18px\">价格</td>
+        <td style=\"font-size:18px\">菜品描述</td>
+        </tr>";
         foreach ($food_array as $row) {
             echo "
             <style>
@@ -702,7 +723,7 @@ function display_foods($food_array) {
             if (@file_exists("images/foods/{$row['fno']}/cover.png"))  {
                 $size = GetImageSize("images/foods/{$row['fno']}/cover.png");
                 if(($size[0] > 0) && ($size[1] > 0)) {
-                    echo "<td>
+                    echo "<td style=\"width:100px;word-break:keep-all\">
                     <div class=\"image-container\">
                     <img alt=\"Background Image\" src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=200 width=200/>";
                     if($row['state']=="售罄")
@@ -711,7 +732,7 @@ function display_foods($food_array) {
                 }
             }
             else{
-                echo "<td>
+                echo "<td style=\"width:100px;word-break:keep-all\">
                 <div class=\"image-container\">
                 <img src=\"images/foods/cat/".htmlspecialchars($row['catid']).".png\"  style=\"border: 1px solid black\" height=200 width=200/>";
                 if($row['state']=="售罄")
@@ -719,16 +740,21 @@ function display_foods($food_array) {
                 echo "</div></td>";
             }
 
-            echo "</td><td>";
+            echo "</td><td style=\"width:60px;word-break:keep-all\">";
             $title = htmlspecialchars($row['title']);
-            do_html_url($url, $title);
-            echo '<span style="font-size: 18px;">店铺：'.$row['username'].'</span>';
-            echo '<br><span style="font-size: 18px;">类别：'.get_categories($row['catid'])[0]['catname'].'</span>';
-            echo '<br><span style="font-size: 18px;">状态：'.$row['state'].'</span>';
-            if(isset($_SESSION['valid_admin']) or isset($_SESSION['valid_shop']))
-                echo ' 修改状态';
-            echo '<br><span style="font-size: 18px;">单价：'.$row['price'].'</span>';
-            echo '<br><span style="font-size: 18px;">描述：'.$row['description'].'</span>';
+            echo '<span style="font-size: 20px;">'.$row['title'].'</span>';
+            echo '<br><span style="font-size: 15px;">'.$row['username'].'</span>';
+            do_html_url($url, "查看详情");
+            echo '<td><span style="font-size: 18px;">'.get_categories($row['catid'])[0]['catname'].'</span></td>';
+            if(isset($_SESSION['valid_admin']) or isset($_SESSION['valid_shop'])){
+                echo '<td><span style="font-size: 18px;">'.$row['state'].'</span>';
+                echo "<br><a style=\"color:red;\" href=\"change_state.php?title=".$row['title']."\"'>修改状态</a></td>";
+            }
+            else
+                echo '<td><span style="font-size: 18px;">'.$row['state'].'</span></td>';
+
+            echo '<td><span style="font-size: 18px;">'.$row['price'].'</span></td>';
+            echo '<td style="width:150px;word-break:keep-all"><span style="font-size: 18px;">'.$row['description'].'</span></td>';
             echo "</td></tr>";
             
         }
@@ -746,9 +772,18 @@ function display_foods($food_array) {
             echo "<p>本店还未推出任何菜品，请添加菜品。</p>";
         } else {
             //create table
-            echo "<table width=\"auto\" border=\"0\">";
-
+            echo "<table width=\"100%\" border=\"1\">";
+            echo "<tbody align=\"center\">";
             //create a table row for each book
+            echo "<tr>
+                <td></td>
+                <td style=\"font-size:18px\">商家头像</td>
+                <td style=\"font-size:18px\">商家名称</td>
+                <td style=\"font-size:18px\">联系电话</td>
+                <td style=\"font-size:18px\">描述</td>
+                <td style=\"font-size:18px\">菜品数量</td>
+                <td style=\"font-size:18px\">店铺销量</td>
+                </tr>";
             foreach ($shop_array as $row) {
                 $url = "show_shop.php?username=" . urlencode($row['username']);
                 echo "<tr><td>";
@@ -763,7 +798,7 @@ function display_foods($food_array) {
                     echo "<td><img src=\"images/users/photo.png\"  style=\"border: 1px solid black\" height=200 width=200/></td>";
                 }
 
-                echo "</td><td>";
+                echo "</td><td style=\"width:300px\">";
                 $username = htmlspecialchars($row['username']);
                 do_html_url($url, $username);
                 if(isset($_SESSION['valid_admin'])){
@@ -771,11 +806,12 @@ function display_foods($food_array) {
                     echo "<a href=\"byshop.php?delete_username=$username\">  删除店铺</a><br>";
                 }
 
-                echo '<span style="font-size: 18px;">联系电话：'.$row['phone'].'</span>';
-                echo '<br><span style="font-size: 18px;">位置：'.$row['default_pos'].'</span>';
-                echo '<br><span style="font-size: 18px;">描述：'.($row['description']==''? $row['username']:$row['description']).'</span>';
-                echo '<br><span style="font-size: 18px;">菜品数量：'.get_foods_num($row['username']).'</span>';
-                echo '<br><span style="font-size: 18px;">订单数量：'.get_orders_num($row['username']).'</span>';
+                
+                echo '<br><span style="font-size: 18px;">'.$row['default_pos'].'</span>';
+                echo '<td><span style="font-size: 18px;">'.$row['phone'].'</span></td>';
+                echo '<td style="width:550px;word-break:keep-all"><span style="font-size: 18px;">'.($row['description']==''? $row['username']:$row['description']).'</span></td>';
+                echo '<td><span style="font-size: 18px;">'.get_foods_num($row['username']).'</span></td>';
+                echo '<td><span style="font-size: 18px;">'.get_orders_num($row['username']).'</span></td>';
                 echo "</td></tr>";
             }
 
@@ -796,11 +832,11 @@ function display_food_details($food) {
         if (@file_exists("images/foods/{$food['fno']}/cover.png"))  {
             $size = GetImageSize("images/foods/{$food['fno']}/cover.png");
             if(($size[0] > 0) && ($size[1] > 0)) {
-                echo "<td><img src=\"images/foods/".htmlspecialchars($food['fno'])."/cover.png\" style=\"border: 1px solid black\" height=150/></td>";
+                echo "<td><img src=\"images/foods/".htmlspecialchars($food['fno'])."/cover.png\" style=\"border: 1px solid black\" height=200/></td>";
             }
         }
         else{
-            echo "<td><img src=\"images/foods/cat/".htmlspecialchars($food['catid']).".png\"  style=\"border: 1px solid black\" height=150/></td>";
+            echo "<td><img src=\"images/foods/cat/".htmlspecialchars($food['catid']).".png\"  style=\"border: 1px solid black\" height=200/></td>";
 
         }
 
@@ -815,7 +851,7 @@ function display_food_details($food) {
         echo "</li><li><strong style='font-size: 18px;'>状态:</strong> ";
         echo "<a style='font-size: 18px;'>".$food['state']."</a> ";
         if(isset($_SESSION['valid_admin']) or isset($_SESSION['valid_shop']))
-            echo " 修改状态";
+            echo " <a style=\"color:red;\" href=\"change_state.php?title=".$food['title']."\"'>修改状态</a>";
 
         echo "</li><li><strong style='font-size: 18px;'>价格:</strong> ";
         echo "<a style='font-size: 18px;'>".number_format($food['price'], 2)."</a> ";
