@@ -690,78 +690,125 @@ function display_foods($food_array) {
         echo "<tbody align=\"center\">";
 
         //create a table row for each book
-        echo "<tr>
-        <td></td>
-        <td style=\"font-size:18px\">菜品图片</td>
-        <td style=\"font-size:18px\">菜品名称</td>
-        <td style=\"font-size:18px\">类别</td>
-        <td style=\"font-size:18px\">状态</td>
-        <td style=\"font-size:18px\">价格</td>
-        <td style=\"font-size:18px\">菜品描述</td>
-        </tr>";
-        foreach ($food_array as $row) {
-            echo "
-            <style>
-            .image-container {
-                position: relative;
-                display: inline-block;
-            }
-            .image-container .overlay-image {
-                position: absolute;
-                left: 5px; /* 调整到你希望的位置 */
-                top: 10px;
-                width: 180px;
-            }
-            </style>
-            ";
-            $url = "show_food.php?fno=" . urlencode($row['fno']);
-            echo "<tr><td>";
+       echo "<tr>
+<td></td>
+<td style=\"font-size:18px\">菜品图片</td>
+<td style=\"font-size:18px\">菜品名称</td>
+<td style=\"font-size:18px\">类别</td>
+<td style=\"font-size:18px\">状态</td>
+<td style=\"font-size:18px\">价格</td>
+<td style=\"font-size:18px\">菜品描述</td>
+<td style=\"font-size:18px\">数量</td> <!-- 新增数量列 -->
+</tr>";
 
-            if (@file_exists("images/foods/{$row['fno']}/cover.png"))  {
-                $size = GetImageSize("images/foods/{$row['fno']}/cover.png");
-                if(($size[0] > 0) && ($size[1] > 0)) {
-                    echo "<td style=\"width:100px;word-break:keep-all\">
-                    <div class=\"image-container\">
-                    <img alt=\"Background Image\" src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=200 width=200/>";
-                    if($row['state']=="售罄")
-                    echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
-                    echo "</div></td>";
-                }
-            }
-            else{
-                echo "<td style=\"width:100px;word-break:keep-all\">
-                <div class=\"image-container\">
-                <img src=\"images/foods/cat/".htmlspecialchars($row['catid']).".png\"  style=\"border: 1px solid black\" height=200 width=200/>";
-                if($row['state']=="售罄")
-                    echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
-                echo "</div></td>";
-            }
+// 遍历每一个菜品信息，生成表格行
+foreach ($food_array as $row) {
+    // 输出用于图片和覆盖图片的样式
+    echo "
+    <style>
+    .image-container {
+        position: relative;
+        display: inline-block;
+    }
+    .image-container .overlay-image {
+        position: absolute;
+        left: 5px; /* 调整到你希望的位置 */
+        top: 10px;
+        width: 180px;
+    }
+    </style>
+    ";
 
-            echo "</td><td style=\"width:60px;word-break:keep-all\">";
-            $title = htmlspecialchars($row['title']);
-            echo '<span style="font-size: 20px;">'.$row['title'].'</span>';
-            echo '<br><span style="font-size: 15px;">'.$row['username'].'</span>';
-            do_html_url($url, "查看详情");
-            echo '<td><span style="font-size: 18px;">'.get_categories($row['catid'])[0]['catname'].'</span></td>';
-            if(isset($_SESSION['valid_admin']) or isset($_SESSION['valid_shop'])){
-                echo '<td><span style="font-size: 18px;">'.$row['state'].'</span>';
-                echo "<br><a style=\"color:red;\" href=\"change_state.php?title=".$row['title']."\"'>修改状态</a></td>";
-            }
-            else
-                echo '<td><span style="font-size: 18px;">'.$row['state'].'</span></td>';
+    // 构建查看菜品详情的URL
+    $url = "show_food.php?fno=" . urlencode($row['fno']);
 
-            echo '<td><span style="font-size: 18px;">'.$row['price'].'</span></td>';
-            echo '<td style="width:150px;word-break:keep-all"><span style="font-size: 18px;">'.$row['description'].'</span></td>';
-            echo "</td></tr>";
-            
+    // 开始输出表格行
+    echo "<tr><td>";
+
+    // 检查菜品图片是否存在
+    if (@file_exists("images/foods/{$row['fno']}/cover.png"))  {
+        $size = GetImageSize("images/foods/{$row['fno']}/cover.png");
+        // 检查图片尺寸是否有效
+        if (($size[0] > 0) && ($size[1] > 0)) {
+            echo "<td style=\"width:100px;word-break:keep-all\">
+            <div class=\"image-container\">
+            <img alt=\"Background Image\" src=\"images/foods/".htmlspecialchars($row['fno'])."/cover.png\" style=\"border: 1px solid black\" height=200 width=200/>";
+            // 如果菜品状态为“售罄”，显示覆盖图片
+            if ($row['state'] == "售罄")
+                echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
+            echo "</div></td>";
         }
-        
-        echo "</table>";
-        
+    } else {
+        // 如果菜品图片不存在，显示类别图片
+        echo "<td style=\"width:100px;word-break:keep-all\">
+        <div class=\"image-container\">
+        <img src=\"images/foods/cat/".htmlspecialchars($row['catid']).".png\"  style=\"border: 1px solid black\" height=200 width=200/>";
+        if ($row['state'] == "售罄")
+            echo "<img alt=\"Overlay Image\" class=\"overlay-image\" src=\"images/sold.png\">";
+        echo "</div></td>";
     }
 
-    echo "<hr />";
+    // 输出菜品名称和发布者用户名
+    echo "</td><td style=\"width:60px;word-break:keep-all\">";
+    $title = htmlspecialchars($row['title']);
+    echo '<span style="font-size: 20px;">'.$row['title'].'</span>';
+    echo '<br><span style="font-size: 15px;">'.$row['username'].'</span>';
+    do_html_url($url, "查看详情");
+
+    // 输出菜品类别
+    echo '<td><span style="font-size: 18px;">'.get_categories($row['catid'])[0]['catname'].'</span></td>';
+
+    // 如果是管理员或商店用户，显示修改状态链接
+    if (isset($_SESSION['valid_admin']) or isset($_SESSION['valid_shop'])) {
+        echo '<td><span style="font-size: 18px;">'.$row['state'].'</span>';
+        echo "<br><a style=\"color:red;\" href=\"change_state.php?title=".$row['title']."\"'>修改状态</a></td>";
+    } else {
+        // 普通用户只显示状态
+        echo '<td><span style="font-size: 18px;\">'.$row['state'].'</span></td>';
+    }
+
+    // 输出菜品价格
+    echo '<td><span style="font-size: 18px;">'.$row['price'].'</span></td>';
+
+    // 输出菜品描述
+    echo '<td style="width:150px;word-break:keep-all"><span style="font-size: 18px;">'.$row['description'].'</span></td>';
+
+    // 添加数量选择部分
+    echo '<td style="width:150px;word-break:keep-all">
+            <div>
+                <button onclick="decreaseQuantity(\'' . htmlspecialchars($row['fno']) . '\')">-</button>
+                <input type="text" id="quantity_' . htmlspecialchars($row['fno']) . '" value="0" size="3" readonly>
+                <button onclick="increaseQuantity(\'' . htmlspecialchars($row['fno']) . '\')">+</button>
+            </div>
+          </td>';
+
+    // 结束表格行
+    echo "</td></tr>";
 }
+
+// 结束表格
+echo "</table>";
+}
+// 输出水平分割线
+echo "<hr />";
+}
+
+<!-- 添加 JavaScript 脚本 -->
+<script>
+function increaseQuantity(fno) {
+    var quantityInput = document.getElementById('quantity_' + fno);
+    var currentValue = parseInt(quantityInput.value);
+    quantityInput.value = currentValue + 1;
+}
+
+function decreaseQuantity(fno) {
+    var quantityInput = document.getElementById('quantity_' + fno);
+    var currentValue = parseInt(quantityInput.value);
+    if (currentValue > 0) {
+        quantityInput.value = currentValue - 1;
+    }
+}
+</script>
 
     function display_shops($shop_array) {
         //display all books in the array passed in
