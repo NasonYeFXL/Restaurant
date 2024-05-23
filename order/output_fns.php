@@ -550,20 +550,28 @@ function display_cart($cart, $change = true, $images = 1) {
     echo "<script> 
     function increment(id) {
         var quantity = document.getElementById(String(id));
-        quantity.value = parseInt(quantity.value) + 1;
+        if (quantity.value <= 999)
+            quantity.value = parseInt(quantity.value) + 1;
     }
     
     function decrement(id) {
         var quantity = document.getElementById(String(id));
-        quantity.value = parseInt(quantity.value) - 1;
+        if (quantity.value > 1)
+            quantity.value = parseInt(quantity.value) - 1;
+    }
+
+    function clr(id) {
+        var quantity = document.getElementById(String(id));
+        quantity.value = 0;
     }
     </script>";
     echo "<table border=\"0\" width=\"100%\" cellspacing=\"0\">
          <form action=\"show_cart.php\" method=\"post\">
-         <tr><th colspan=\"".(1 + $images)."\" bgcolor=\"#cccccc\">Item</th>
-         <th bgcolor=\"#cccccc\">Price</th>
-         <th bgcolor=\"#cccccc\">Quantity</th>
-         <th bgcolor=\"#cccccc\">Total</th>
+         <tr><th colspan=\"".(1 + $images)."\" bgcolor=\"#cccccc\">商品</th>
+         <th bgcolor=\"#cccccc\">价格</th>
+         <th bgcolor=\"#cccccc\">数量</th>
+         <th bgcolor=\"#cccccc\">总计</th>
+         <th bgcolor=\"#cccccc\">其他</th>
          </tr>";
 
     //display each item as a table row
@@ -590,13 +598,15 @@ function display_cart($cart, $change = true, $images = 1) {
 
         // if we allow changes, quantities are in text boxes
         if ($change == true) {
-            echo "<button style=\"width:5%;padding:5px\" onclick=\"increment('$isbn')\">+</button>";
-            echo "<input style=\"width:10%;padding:5px\" type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
             echo "<button style=\"width:5%;padding:5px\" onclick=\"decrement('$isbn')\">-</button>";
+            echo "<input readonly=\"readonly\" style=\"width:10%;padding:5px\" type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
+            echo "<button style=\"width:5%;padding:5px\" onclick=\"increment('$isbn')\">+</button>";
+            echo "";
         } else {
             echo $qty;
         }
-        echo "</td><td style=\"font-size:15px\" align=\"center\">\$".number_format($food['price']*$qty,2)."</td></tr>\n";
+        echo "</td><td style=\"font-size:15px\" align=\"center\">\$".number_format($food['price']*$qty,2)."</td>\n";
+        echo "<td align=\"center\"><button style=\"width:50%;padding:5px\" onclick=\"clr('$isbn')\">移出购物车</button></td></tr>";
     }
     // display total row
     echo "<tr>
@@ -605,6 +615,7 @@ function display_cart($cart, $change = true, $images = 1) {
         <th align=\"center\" bgcolor=\"#cccccc\">
             \$".number_format($_SESSION['total_price'], 2)."
         </th>
+        <th align=\"center\" bgcolor=\"#cccccc\"></th>
         </tr>";
 
     // display save change button
