@@ -590,9 +590,9 @@ function display_cart($cart, $change = true, $images = 1) {
 
         // if we allow changes, quantities are in text boxes
         if ($change == true) {
-            echo "<button style=\"width:5%;padding:5px\" onclick=\"decrement('$isbn')\">-</button>";
-            echo "<input style=\"width:10%;padding:5px\" type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
             echo "<button style=\"width:5%;padding:5px\" onclick=\"increment('$isbn')\">+</button>";
+            echo "<input style=\"width:10%;padding:5px\" type=\"text\" id=\"".htmlspecialchars($isbn)."\" name=\"".htmlspecialchars($isbn)."\" value=\"".htmlspecialchars($qty)."\" size=\"3\" required>";
+            echo "<button style=\"width:5%;padding:5px\" onclick=\"decrement('$isbn')\">-</button>";
         } else {
             echo $qty;
         }
@@ -866,7 +866,7 @@ function decreaseQuantity(fno) {
     }
 
 
-//展示详细信息
+//展示书籍详细信息
 function display_food_details($food) {
 
     if (is_array($food)) {
