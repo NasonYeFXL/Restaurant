@@ -606,7 +606,8 @@ function display_cart($cart, $change = true, $images = 1) {
             echo $qty;
         }
         echo "</td><td style=\"font-size:15px\" align=\"center\">\$".number_format($food['price']*$qty,2)."</td>\n";
-        echo "<td align=\"center\"><button style=\"width:50%;padding:5px\" onclick=\"clr('$isbn')\">移出购物车</button></td></tr>";
+        if ($change == true)
+            echo "<td align=\"center\"><button style=\"width:50%;padding:5px\" onclick=\"clr('$isbn')\">移出购物车</button></td></tr>";
     }
     // display total row
     echo "<tr>
@@ -709,6 +710,7 @@ function display_foods($food_array) {
         <td style=\"font-size:18px\">状态</td>
         <td style=\"font-size:18px\">价格</td>
         <td style=\"font-size:18px\">菜品描述</td>
+        <td style=\"font-size:18px\">加入购物车</td>
         </tr>";
         foreach ($food_array as $row) {
             echo "
@@ -763,6 +765,12 @@ function display_foods($food_array) {
 
             echo '<td><span style="font-size: 18px;">'.$row['price'].'</span></td>';
             echo '<td style="width:150px;word-break:keep-all"><span style="font-size: 18px;">'.$row['description'].'</span></td>';
+            echo '<td style="width:90px;word-break:keep-all">';
+            if($row['state']=="售罄")
+                echo "<h3>该菜品暂时售罄, 无法加入购物车</h3>";
+            else
+                display_button("show_cart.php?new=". urlencode($row['fno']), "cart", "加入到购物车 ");
+            echo '</td>';
             echo "</td></tr>";
             
         }

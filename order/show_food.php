@@ -39,7 +39,11 @@ else if(isset($_SESSION['valid_shop']))
 }
 else if(isset($_SESSION['valid_user'])){
   $target = "user_main.php";
-  display_button("show_cart.php?new=". urlencode($fno), "cart", "加入到购物车 ");
+  if($food['state'] == "售罄")
+    echo "<h2>该菜品暂时售罄, 无法加入购物车</h2>";
+  else
+    display_button("show_cart.php?new=". urlencode($fno), "cart", "加入到购物车 ");
+  
   display_button("show_cat.php?catid=".$food['catid'], "last", "返回上一页");
   display_button($target, "main", "返回主页面");
 }

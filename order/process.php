@@ -20,14 +20,14 @@
 	  unset($_SESSION['items']);
 	  unset($_SESSION['total_price']);
 	  unset($_SESSION['cart']);
-      echo "<p>你的订单已经完成，谢谢惠顾，欢迎再次下单。</p>";
+      echo "<h2>你的订单已经完成，谢谢惠顾，欢迎再次下单。</h2>";
       display_button("user_main.php", "cart", "Continue Shopping");//跳转按钮
     } else {
-      echo "<p>无法完成支付，请重试。</p>";
+      echo "<h2>无法完成支付，请重试。</h2>";
       display_button("purchase.php", "last", "Back");//跳转按钮
     }
   } else {
-    echo "<p>你未按要求填写表单，请重试。</p><hr />";
+    echo "<h2>你未按要求填写表单，请重试。</h2><hr />";
     display_button("purchase.php", "last", "Back");//跳转按钮
   }
 
