@@ -1513,16 +1513,18 @@ function display_card_form($name) {
                 qrCodeDiv.style.display = 'none';
             } else {
                 cardDetails.style.display = 'none';
-                qrCodeDiv.style.display = 'block';
+                qrCodeDiv.style.display = 'table-row';
+                var qrCodeContent = '';
                 if (cardType === 'Wechatpay') {
-                    qrCodeDiv.innerHTML = '<td><img width=\"50%\" src="images/Wechatpay.jpg" alt="WeChat Pay QR Code"></td>';
+                    qrCodeContent = '<img width=\"50%\" src="images/Wechatpay.jpg" alt="WeChat Pay QR Code">';
                 } else if (cardType === 'Alipay') {
-                    qrCodeDiv.innerHTML = '<img width=\"50%\" src="images/Alipay.jpg" alt="Alipay QR Code">';
+                    qrCodeContent = '<img width=\"50%\" src="images/Alipay.jpg" alt="Alipay QR Code">';
                 }
+                qrCodeDiv.querySelector('td').innerHTML = qrCodeContent;
             }
         }
     </script>
-    <table border="1" width="100%" cellspacing="0">
+    <table border="0" width="100%" cellspacing="0">
         <form action="process.php" method="post">
             <tr><th colspan="2" bgcolor="#cccccc">Payment Details</th></tr>
             <tr>
@@ -1549,7 +1551,7 @@ function display_card_form($name) {
                 </tr>
             </tbody>
             <tr id="qr_code" style="display:none;">
-                <td colspan="2" align="center"></td>
+                <td colspan="2" align="center" style="text-align: center;"></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
