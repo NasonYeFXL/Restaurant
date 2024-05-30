@@ -1517,31 +1517,55 @@ function display_shipping($shipping) {
 
 //输出填写支付账号信息表单html代码
 function display_card_form($name) {
-    //display form asking for credit card details
     ?>
+    <script>
+        function updatePaymentFields() {
+            var cardType = document.getElementById('card_type').value;
+            var cardDetails = document.getElementById('card_details');
+            var qrCodeDiv = document.getElementById('qr_code');
+
+            if (cardType === 'BankCard') {
+                cardDetails.style.display = 'table-row-group';
+                qrCodeDiv.style.display = 'none';
+            } else {
+                cardDetails.style.display = 'none';
+                qrCodeDiv.style.display = 'block';
+                if (cardType === 'Wechatpay') {
+                    qrCodeDiv.innerHTML = '<img src="path_to_wechat_qr_code.jpg" alt="WeChat Pay QR Code">';
+                } else if (cardType === 'Alipay') {
+                    qrCodeDiv.innerHTML = '<img src="path_to_alipay_qr_code.jpg" alt="Alipay QR Code">';
+                }
+            }
+        }
+    </script>
     <table border="0" width="100%" cellspacing="0">
         <form action="process.php" method="post">
-            <tr><th colspan="2" bgcolor="#cccccc">Credit Card Details</th></tr>
+            <tr><th colspan="2" bgcolor="#cccccc">Payment Details</th></tr>
             <tr>
                 <td>Type</td>
-                <td><select name="card_type">
-                        <option value="VISA">VISA</option>
-                        <option value="MasterCard">MasterCard</option>
-                        <option value="American Express">American Express</option>
+                <td><select name="card_type" id="card_type" onchange="updatePaymentFields()">
+                        <option value="BankCard">Bank Card</option>
+                        <option value="Wechatpay">Wechatpay</option>
+                        <option value="Alipay">Alipay</option>
                     </select>
                 </td>
             </tr>
-            <tr>
-                <td>Number</td>
-                <td><input type="text" name="card_number" value="" maxlength="16" size="40"></td>
-            </tr>
-            <tr>
-                <td>AMEX code (if required)</td>
-                <td><input type="text" name="amex_code" value="" maxlength="4" size="4"></td>
-            </tr>
-            <tr>
-                <td>Name on Card</td>
-                <td><input type="text" name="card_name" value = "<?php echo $name; ?>" maxlength="40" size="40"></td>
+            <tbody id="card_details">
+                <tr>
+                    <td>Number</td>
+                    <td><input type="text" name="card_number" value="" maxlength="16" size="40"></td>
+                </tr>
+                <tr>
+                    <td>AMEX code (if required)</td>
+                    <td><input type="text" name="amex_code" value="" maxlength="4" size="4"></td>
+                </tr>
+                <tr>
+                    <td>Name on Card</td>
+                    <td><input type="text" name="card_name" value = "<?php echo $name; ?>" maxlength="40" size="40"></td>
+                </tr>
+            </tbody>
+            <tr id="qr_code" style="display:none;">
+                <td colspan="2" align="center"></td>
             </tr>
             <tr>
                 <td colspan="2" align="center">
@@ -1549,8 +1573,12 @@ function display_card_form($name) {
                     <?php display_form_button('checkout', 'Purchase These Items'); ?>
                 </td>
             </tr>
+        </form>
     </table>
+    <script>
+        // Initialize the form fields based on the current selection
+        updatePaymentFields();
+    </script>
     <?php
 }
-
 ?>
