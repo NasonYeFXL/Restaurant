@@ -1516,9 +1516,9 @@ function display_card_form($name) {
                 qrCodeDiv.style.display = 'table-row';
                 var qrCodeContent = '';
                 if (cardType === 'Wechatpay') {
-                    qrCodeContent = '<img width=\"50%\" src="images/Wechatpay.jpg" alt="WeChat Pay QR Code">';
+                    qrCodeContent = '<img width=\"30%\" src="images/Wechatpay.jpg" alt="WeChat Pay QR Code">';
                 } else if (cardType === 'Alipay') {
-                    qrCodeContent = '<img width=\"50%\" src="images/Alipay.jpg" alt="Alipay QR Code">';
+                    qrCodeContent = '<img width=\"30%\" src="images/Alipay.jpg" alt="Alipay QR Code">';
                 }
                 qrCodeDiv.querySelector('td').innerHTML = qrCodeContent;
             }
