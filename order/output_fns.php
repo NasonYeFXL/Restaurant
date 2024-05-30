@@ -1531,9 +1531,9 @@ function display_card_form($name) {
                 cardDetails.style.display = 'none';
                 qrCodeDiv.style.display = 'block';
                 if (cardType === 'Wechatpay') {
-                    qrCodeDiv.innerHTML = '<img src="path_to_wechat_qr_code.jpg" alt="WeChat Pay QR Code">';
+                    qrCodeDiv.innerHTML = '<img src="images/Wechatpay.png" alt="WeChat Pay QR Code">';
                 } else if (cardType === 'Alipay') {
-                    qrCodeDiv.innerHTML = '<img src="path_to_alipay_qr_code.jpg" alt="Alipay QR Code">';
+                    qrCodeDiv.innerHTML = '<img src="images/Alipay.png" alt="Alipay QR Code">';
                 }
             }
         }
