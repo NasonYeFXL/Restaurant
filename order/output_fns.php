@@ -295,72 +295,56 @@ function display_admin_menu() {
 
 function display_user_menu() {
 
-    echo "<ul>";
+    echo "<table style=\"table-layout: fixed; word-break: break-all; word-wrap: break-word;\" width=\"80%\"><tr>";
     //查看所有菜品
     $url = "shop_disp_all.php";
     $title = '所有菜品';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
-
+    echo "</td>";
     //按分类查找菜品
     $url = "bycat.php";
     $title = '查看分类';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
-
+    echo "</td>";
     //查看店铺、、、
     $url = "byshop.php";
     $title = '查看店铺';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
+    echo "</td>";
 
     //查看推荐
     $url = "shop_disp_all.php?recommend=1";
     $title = '查看推荐';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
+    echo "</td>";
 
     //查看购物车
     $url = "show_cart.php";
     $title = '查看购物车';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
+    echo "</td>";
 
     //修改个人信息
     $url = "edit_shop_form.php";
     $title = '编辑个人信息';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
-
-
-
-
-
-
-
-
+    echo "</td>";
 
     //修改密码
     $url = "change_passwd_form.php";
     $title = '修改密码';
-    echo "<li>";
+    echo "<td>";
     do_html_url($url, $title);
-    echo "</li>";
-
+    echo "</td></tr></table>";
 
     echo '<br>';
-
-    echo "</ul>";
     echo "<hr />";
-
-
-
 
 }
 

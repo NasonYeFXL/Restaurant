@@ -41,7 +41,7 @@ do_html_header('主页');
 // 检查用户是否拥有一个注册的对话 针对没有登录却处于会话中的用户
 if(check_access()){
     display_search();
-    echo '<br><h2>请选择功能：</h2><br>';
+    echo '<h2>请选择功能：</h2>';
     display_user_menu();
     $conn = db_connect();
 
