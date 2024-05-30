@@ -1467,6 +1467,10 @@ function display_checkout_form() {
                 <td><input type="text" name="pos" maxlength="20" size="40" value="<?php echo $result['default_pos'];?>"/></td>
             </tr>
             <tr>
+                <td>备注(非必须)</td>
+                <td><input type="text" name="description" maxlength="20" size="40" value="<?php echo $result['description'];?>"/></td>
+            </tr>
+            <tr>
                 <td colspan="2" align="center"><p><strong>点击下方按钮确认订单，或者你可以继续购物：</strong></p>
                     <?php display_form_button("checkout", "支付订单"); ?>
                 </td>

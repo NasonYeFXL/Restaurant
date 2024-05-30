@@ -10,11 +10,19 @@
   $name = $_POST['name'];
   $phone = $_POST['phone'];
   $pos = $_POST['pos'];
-
+  $desc = $_POST['description'];
   // if filled out
   if (($_SESSION['cart']) && ($name) && ($phone) && ($pos)) {
     // able to insert into database
     if(insert_order($_POST) != false ) {
+      $conn = db_connect();
+      $query = "update user
+                set name= '".$conn->real_escape_string($name)."',
+                phone = '".$conn->real_escape_string($phone)."',
+                default_pos = '".$conn->real_escape_string($pos)."',
+                description = '".$conn->real_escape_string($desc)."'
+                where username = '".$conn->real_escape_string($_SESSION['valid_user'])."'";
+      $result = @$conn->query($query);
       //display cart, not allowing changes and without pictures
       display_cart($_SESSION['cart'], false, 0);//输出购物车html代码
 
