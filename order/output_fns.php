@@ -1526,7 +1526,7 @@ function display_card_form($name) {
         <form action="process.php" method="post">
             <tr><th colspan="2" bgcolor="#cccccc">Payment Details</th></tr>
             <tr>
-                <td>Type</td>
+                <td width="550px">Type</td>
                 <td><select name="card_type" id="card_type" onchange="updatePaymentFields()">
                         <option value="BankCard">Bank Card</option>
                         <option value="Wechatpay">Wechatpay</option>
