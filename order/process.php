@@ -30,12 +30,10 @@
       }
     } elseif ($card_type == 'Wechatpay' || $card_type == 'Alipay') {
       // 处理二维码支付
-      echo "<h2>请使用二维码完成支付。</h2>";
-      if ($card_type == 'Wechatpay') {
-        echo '<img src="path_to_wechat_qr_code.jpg" alt="WeChat Pay QR Code">';
-      } elseif ($card_type == 'Alipay') {
-        echo '<img src="path_to_alipay_qr_code.jpg" alt="Alipay QR Code">';
-      }
+      unset($_SESSION['items']);
+      unset($_SESSION['total_price']);
+      unset($_SESSION['cart']);
+      echo "<h2>你的订单已经完成，谢谢惠顾，欢迎再次下单。</h2>";
       // 这里可以添加更多处理二维码支付成功后的代码
       display_button("user_main.php", "cart", "Continue Shopping"); // 跳转按钮
     } else {

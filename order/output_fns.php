@@ -1515,14 +1515,14 @@ function display_card_form($name) {
                 cardDetails.style.display = 'none';
                 qrCodeDiv.style.display = 'block';
                 if (cardType === 'Wechatpay') {
-                    qrCodeDiv.innerHTML = '<img src="images/Wechatpay.png" alt="WeChat Pay QR Code">';
+                    qrCodeDiv.innerHTML = '<td><img width=\"50%\" src="images/Wechatpay.jpg" alt="WeChat Pay QR Code"></td>';
                 } else if (cardType === 'Alipay') {
-                    qrCodeDiv.innerHTML = '<img src="images/Alipay.png" alt="Alipay QR Code">';
+                    qrCodeDiv.innerHTML = '<img width=\"50%\" src="images/Alipay.jpg" alt="Alipay QR Code">';
                 }
             }
         }
     </script>
-    <table border="0" width="100%" cellspacing="0">
+    <table border="1" width="100%" cellspacing="0">
         <form action="process.php" method="post">
             <tr><th colspan="2" bgcolor="#cccccc">Payment Details</th></tr>
             <tr>
